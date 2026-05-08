@@ -9,7 +9,7 @@ int main() {
 
   // TODO: Uncomment the code below to pass the first stage
   std::cout << "$ ";
-  string command;
+  std::string command;
   std::cin >> command;
-  std::cout << command << ": commad not found" << "\n";
+  std::cout << command << ": command not found" << "\n";
 }
