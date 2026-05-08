@@ -9,8 +9,8 @@ int main() {
 
   // TODO: Uncomment the code below to pass the first stage
 
-  std::string command;
-  while(true)
+  std::string command="";
+  while(command != "exit")
   {
     std::cout << "$ ";
     std::cin >> command;
