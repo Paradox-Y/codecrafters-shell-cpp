@@ -1,20 +1,23 @@
 #include <iostream>
 #include <string>
 
+using std::cout;
+using std::cin;
 
 int main() {
-  // Flush after every std::cout / std:cerr
+  // Flush after every std::cout / std:cerr  UNDERSTAND THIS
   std::cout << std::unitbuf;
   std::cerr << std::unitbuf;
 
-  // TODO: Uncomment the code below to pass the first stage
 
   std::string command="";
-  while(command != "exit")
+  while(true)
   {
-    std::cout << "$ ";
-    std::cin >> command;
-    std::cout << command << ": command not found" << "\n";
+    cout << "$ ";
+    cin >> command;
+    if(command == "exit")
+      return 0;
+    cout << command << ": command not found" << "\n";
   }
 
 }
