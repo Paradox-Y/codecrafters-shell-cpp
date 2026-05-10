@@ -109,6 +109,7 @@ Commit:
 1. New Loop for the REPL , add echo command and complety replaced cin with getline do to the stream object tokens are based on space and not a newline. 
 2. Implemented the type builtin for shell. Type - write a description of command type.
 3. Extended the type builtin command to search for executable files using PATH.
+4. Fix: The Extended the type builtin command to search for executable files 
 */
 
 /*
