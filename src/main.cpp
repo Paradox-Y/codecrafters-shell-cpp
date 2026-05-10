@@ -43,7 +43,8 @@ void typeExtanded (string command) // Working progress
     }
   }
   fs::path p = fs::current_path(); //static function thats why we can imedatly call it. No need to constract a specific object instance.
-  scan_directory(p,command); // Now we check for files with the same name as the command.
+  const char* path_env = getenv("PATH");
+  scan_directory(path_env,command); // Now we check for files with the same name as the command.
 
 }
 
