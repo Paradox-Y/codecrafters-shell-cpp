@@ -110,6 +110,7 @@ Commit:
 2. Implemented the type builtin for shell. Type - write a description of command type.
 3. Extended the type builtin command to search for executable files using PATH.
 4. Fix: The Extended the type builtin command to search for executable files 
+5. To Do: Just make a new function 
 */
 
 /*
