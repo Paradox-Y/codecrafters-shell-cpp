@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <filesystem> 
+#include <cstdlib> // this for the getenv
 #include <unistd.h>//is the name of the header file that provides access to the POSIX operating system 
 
 namespace fs = std::filesystem;
@@ -8,6 +9,8 @@ namespace fs = std::filesystem;
 using namespace std;
 
 void scan_directory(const fs::path& p,const string& str);
+bool scan_directory_new(const fs::path& p, const string& command);
+bool executepermissions(const fs::path& p);
 
 void echo(string str)
 {
@@ -42,10 +45,26 @@ void typeExtanded (string command) // Working progress
       return;
     }
   }
-  fs::path p = fs::current_path(); //static function thats why we can imedatly call it. No need to constract a specific object instance.
-  const char* path_env = getenv("PATH");
-  scan_directory(path_env,command); // Now we check for files with the same name as the command.
 
+  const char* path_env = getenv("PATH");
+  stringstream ss(path_env);
+  string dir;
+  while (getline(ss, dir, ':')){
+    if (scan_directory_new(dir, command)) return;
+  }
+
+  cout << command <<": not found\n";
+}
+
+bool scan_directory_new(const fs::path& p, const string& command)
+{
+    fs::path full = p / command;
+    if (fs::exists(full) && executepermissions(full))
+    {
+        cout << command << " is " << full.string() << '\n';
+        return true;
+    }
+    return false;
 }
 
 bool executepermissions(const fs::path& p)
@@ -66,16 +85,10 @@ void scan_directory(const fs::path& p,const string& command)
           cout << command << " is " << f.string() << '\n';
           return;
         }
-           
         else{
-          //string n = f.extension().string();
-          //if(n== ".cpp" || n==".C" || ".cxx")
-          //cout << f.stem() << "is a C++ source file TESTTESTTEST\n";
-          //SkipL the file exists but lacks execute permissions, skip it and continue to the next directory.
+          //currently nothing
         }
       }
-      cout << command <<": not found\n";
-
   }
 }
 
