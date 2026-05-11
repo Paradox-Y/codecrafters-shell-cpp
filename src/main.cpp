@@ -46,6 +46,7 @@ void type(std::string command) //Old version
 
 void echo(std::string command)
 {
+  command.erase(0,5)
   std::cout << command << "\n";
 }
 
@@ -74,7 +75,7 @@ int main() {
     }
     else if(command == "echo")
     {
-      echo(command);
+      echo(line);
     }
     else if(command == "type")
     {
