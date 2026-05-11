@@ -42,8 +42,8 @@ void type(std::string line) //Old version
     std::string path;
     while (std::getline(ss_path, path, ':')) {
       std::string full_path = path + '/' + command;
-      if (access(full_path.c_str(), X_OK) == 0) {
-        std::cout << command << " is " << full_path << "\n";
+      if (access(full_path.c_str(), F_OK) == 0 && access(full_path.c_str(), X_OK) == 0) {
+        std::cout << command << " is " << full_path << '\n';
         return;
       }
     }
