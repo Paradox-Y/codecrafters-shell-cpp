@@ -8,8 +8,13 @@
 
 void echo(std::string str);
 
-void type(std::string command) //Old version
+void type(std::string line) //Old version
 {
+  std::string command;
+  std::stringstream ss(line); 
+  ss >> command;
+  
+
   const std::string builtin_commands[] = {"echo","exit","type"}; 
 
   for(std::string builtin : builtin_commands)
@@ -23,31 +28,30 @@ void type(std::string command) //Old version
 
   // -------------------------------------------------
 
-  const std::string path_env = getenv("PATH"); 
-  if(path_env == "")
-  {
-    return;
-  }
-    
-
-  std::stringstream ss_path(path_env);
-  std::string path;
-  while (std::getline(ss_path, path, ':')) {
-    std::string full_path = path + '/' + command;
-    if (access(full_path.c_str(), X_OK) == 0) {
-      std::cout << command << " is " << full_path << std::endl;
-      return;
+  const char* path_raw = getenv("PATH");
+  const std::string path_env = path_raw ? path_raw : "";
+  if (!path_env.empty()) {
+    std::stringstream ss_path(path_env);
+    std::string path;
+    while (std::getline(ss_path, path, ':')) {
+      std::string full_path = path + '/' + command;
+      if (access(full_path.c_str(), X_OK) == 0) {
+        std::cout << command << " is " << full_path << "\n";
+        return;
+      }
     }
   }
+
+
   std::cout << command << ": not found" << "\n";
 }
 
  
 
-void echo(std::string command)
+void echo(std::string line)
 {
-  command.erase(0,5)
-  std::cout << command << "\n";
+  line.erase(0,5);
+  std::cout << line << "\n";
 }
 
 
@@ -65,7 +69,7 @@ int main() {
     std::cout << "$ ";
     std::getline(std::cin,line);
 
-    std::stringstream ss(line); // What does ss do?
+    std::stringstream ss(line); 
     ss >> command;
 
 
@@ -79,7 +83,7 @@ int main() {
     }
     else if(command == "type")
     {
-      type(command);
+      type(line);
     }
     else
     {
