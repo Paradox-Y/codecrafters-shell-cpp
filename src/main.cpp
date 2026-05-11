@@ -5,7 +5,7 @@
 #include <unistd.h>//is the name of the header file that provides access to the POSIX operating system 
 
 
-//---------------------------------------- Can delete. Good if we want windows compatablity
+//---------------------------------------- Can delete. Good if we want windows compatablity.
 #ifdef _WIN32
 #define PATH_LIST_SEPARATOR ';'
 #else
@@ -81,7 +81,7 @@ void type (string command) // Working progress
   const char* path_env = getenv("PATH");
   stringstream ss(path_env);
   string dir;
-  while (getline(ss, dir, ':')){
+  while (getline(ss, dir, PATH_LIST_SEPARATOR)){ // Windows add Linux
     if (scan_directory(dir, command)) return;
   }
 
