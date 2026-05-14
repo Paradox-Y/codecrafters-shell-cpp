@@ -1,14 +1,14 @@
 #include <iostream>
 #include <string>
-#include <filesystem> 
+#include <filesystem>
 #include <cstdlib> // this for the getenv
 #include <unistd.h>//is the name of the header file that provides access to the POSIX operating system 
 #include <sstream>
 
 
-void echo(std::string str);
+void echo(std::string &str);
 
-void type(std::string line) //Old version
+void type(std::string &line) //Old version
 {
   std::stringstream ss(line);
 
@@ -55,11 +55,19 @@ void type(std::string line) //Old version
 
  
 
-void echo(std::string line)
+void echo(std::string &line)
 {
   line.erase(0,5);
   std::cout << line << "\n";
 }
+
+
+// int execute(std::string line) {
+//   if (line.extension() == ".exe") {
+//     std::cout << line.stem() << " is a Windows executable \n";
+//   }
+//
+// }
 
 
 int main() {
@@ -79,7 +87,6 @@ int main() {
     std::stringstream ss(line); 
     ss >> command;
 
-
     if(command == "exit")
     {
       break;
@@ -88,22 +95,23 @@ int main() {
     {
       echo(line);
     }
-    else if(command == "type")
-    {
+    else if(command == "type") {
       type(line);
     }
     else
     {
       std::cout << command << ": command not found" << "\n";
     }
+
   }
   return 0;
 }
 
 
 /*
-Commits: 
-1.  
+Commits:
+Added:
+1.  Running External Programs: handle external programs that your shell needs to find and run.
 */
 
 /*
