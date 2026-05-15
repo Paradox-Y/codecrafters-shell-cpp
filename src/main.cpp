@@ -5,6 +5,7 @@
 #include <unistd.h>//is the name of the header file that provides access to the POSIX operating system 
 #include <sstream>
 #include <vector>
+#include <sys/wait.h> // concurrence
 
 
 void echo(std::string &str);
@@ -105,12 +106,31 @@ int execute(std::string line) {
     while (std::getline(ss_path, path, ':')) {
       std::string full_path = path + '/' + command;
       if (access(full_path.c_str(), X_OK) == 0) {
-        std::cout << "Ok so you can run it\n";
-
         // 4. FORK so your shell stays alive!
-        //pid_t pid = fork();
-        execvp (full_path.c_str(),args.data());
-        return 0;
+        pid_t pid = fork();
+
+        if (pid == 0) {
+          // --- CHILD PROCESS ---
+          // This clone completely replaces itself with the new program
+          execv(full_path.c_str(), args.data());
+
+          // If execv reaches this line, it means it failed to run
+          std::cerr << "execv failed\n";
+          exit(1); // Kill the broken child process
+        }
+        else if (pid > 0) {
+          // --- PARENT PROCESS (Your Shell) ---
+          // Pause and wait for the child process to finish its job
+          int status;
+          waitpid(pid, &status, 0);
+
+          return 0; // Return to main() so the shell can print the next '$ '
+        }
+        else {
+          // --- ERROR ---
+          std::cerr << "fork failed\n";
+          return 1;
+        }
       }
     }
   }
