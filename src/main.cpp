@@ -168,7 +168,7 @@ int main() {
     }
     else
     {
-      if (execute(line)==1);
+      if (execute(line)==1)
         std::cout << command << ": command not found" << std::endl;
     }
 
