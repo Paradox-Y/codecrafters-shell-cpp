@@ -11,6 +11,9 @@
 void echo(std::string &str);
 int execute(std::string line);
 
+void pwd(std::string &line) {
+  std::cout << std::filesystem::current_path().string() << std::endl;
+}
 
 void type(std::string &line)
 {
@@ -155,6 +158,9 @@ int main() {
     else if(command == "type") {
       type(line);
     }
+    else if (command == "pwd") {
+      pwd(line);
+    }
     else
     {
       if (execute(line)==1)
@@ -169,7 +175,7 @@ int main() {
 /*
 Commits:
 Added:
-1.  Running External Programs: handle external programs that your shell needs to find and run.
+1.  Implement the pwd builtin: pwd (print working directory) builtin prints the full, absolute path of the current working directory to stdout.
 */
 
 /*
