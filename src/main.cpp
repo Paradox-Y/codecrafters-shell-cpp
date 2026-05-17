@@ -12,7 +12,7 @@ void echo(std::string &str);
 int execute(std::string line);
 
 
-void type(std::string &line) //Old version
+void type(std::string &line)
 {
   std::stringstream ss(line);
 
@@ -52,19 +52,14 @@ void type(std::string &line) //Old version
       }
     }
   }
-
-
   std::cout << command << ": not found" << "\n";
 }
-
- 
 
 void echo(std::string &line)
 {
   line.erase(0,5);
   std::cout << line << '\n';
 }
-
 
 int execute(std::string line) {
   // 1. Extract all words from the input line safely
@@ -90,12 +85,6 @@ int execute(std::string line) {
     args.push_back(const_cast<char*>(string_args[i].c_str()));
   }
   args.push_back(nullptr); // Critical: Array must end with NULL
-
-
-
-
-
-
 
   const char* path_raw = getenv("PATH");
   const std::string path_env = path_raw ? path_raw : "";
