@@ -106,7 +106,7 @@ int execute(std::string line) {
     while (std::getline(ss_path, path, ':')) {
       std::string full_path = path + '/' + command;
       if (access(full_path.c_str(), X_OK) == 0) {
-        // 4. FORK so your shell stays alive!
+        // 4. FORK so your shell stays alive!  ------------------------------------------Learn
         pid_t pid = fork();
 
         if (pid == 0) {
@@ -130,7 +130,7 @@ int execute(std::string line) {
           // --- ERROR ---
           std::cerr << "fork failed\n";
           return 1;
-        }
+        }//-----------------------------------------------------------------------------------Learn
       }
     }
   }
