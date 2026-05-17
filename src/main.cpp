@@ -28,7 +28,7 @@ void type(std::string &line)
   if(command.empty())
     return;
   
-  const std::string builtin_commands[] = {"echo","exit","type"}; 
+  const std::string builtin_commands[] = {"echo","exit","type","pwd"};
 
   for(const std::string& builtin : builtin_commands)
   {
