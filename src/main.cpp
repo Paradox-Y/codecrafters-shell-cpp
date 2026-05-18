@@ -15,12 +15,12 @@ bool cd(std::string &line);
 bool cd(std::string &line) {
   std::string path;
   path = line.substr(3);
+
   try {
     std::filesystem::current_path(path);
     return true;
   }
   catch (const std::filesystem::filesystem_error& ex){
-    //std::cerr << "Error: " << ex.what() << std::endl;
     std::cout << "cd: " << path << ": No such file or directory" << std::endl;
     return false;
   }
