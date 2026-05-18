@@ -16,6 +16,14 @@ bool cd(std::string &line) {
   std::string path;
   path = line.substr(3);
 
+  if (path == "~") {
+    const char* home = std::getenv("HOME");
+    if (home != nullptr) {
+      path = home; // Direct assignment works perfectly with std::string
+    }
+
+  }
+
   try {
     std::filesystem::current_path(path);
     return true;
