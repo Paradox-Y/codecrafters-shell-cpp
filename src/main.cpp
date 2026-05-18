@@ -10,6 +10,20 @@
 
 void echo(std::string &str);
 int execute(std::string line);
+bool cd(std::string &line);
+
+bool cd(std::string &line) {
+  std::string path;
+  path = line.substr(3);
+  try {
+    std::filesystem::current_path(path);
+    return true;
+  }
+  catch (const std::filesystem::filesystem_error& ex){
+    std::cerr << "Error: " << ex.what() << std::endl;
+    return false;
+  }
+}
 
 void pwd(std::string &line) {
   std::cout << std::filesystem::current_path().string() << std::endl;
@@ -28,7 +42,7 @@ void type(std::string &line)
   if(command.empty())
     return;
   
-  const std::string builtin_commands[] = {"echo","exit","type","pwd"};
+  const std::string builtin_commands[] = {"echo","exit","type","pwd","cd"};
 
   for(const std::string& builtin : builtin_commands)
   {
@@ -161,6 +175,9 @@ int main() {
     else if (command == "pwd") {
       pwd(line);
     }
+    else if (command == "cd") {
+      cd(line);
+    }
     else
     {
       if (execute(line)==1)
@@ -175,7 +192,7 @@ int main() {
 /*
 Commits:
 Added:
-1.  Implement the pwd builtin: pwd (print working directory) builtin prints the full, absolute path of the current working directory to stdout.
+1.  Implement the cd builtin: cd (change directory),given the absolute path of the current working directory to stdout.
 */
 
 /*
