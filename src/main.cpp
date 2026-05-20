@@ -153,6 +153,12 @@ int execute(std::string line) {
 }
 
 
+bool check_single_quotes(std::vector<char> line) {
+  return true;
+
+}
+
+
 int main() {
   // Flush after every std::cout / std:cerr - flush means the buffer (like a waiter) is seding the string (wiater delevers the food from the kichen) 
   std::cout << std::unitbuf;
@@ -170,23 +176,11 @@ int main() {
     std::stringstream ss(line); 
     ss >> command;
 
-    if(command == "exit")
-    {
-      break;
-    }
-    else if(command == "echo")
-    {
-      echo(line);
-    }
-    else if(command == "type") {
-      type(line);
-    }
-    else if (command == "pwd") {
-      pwd(line);
-    }
-    else if (command == "cd") {
-      cd(line);
-    }
+    if(command == "exit") { break; }
+    else if(command == "echo") { echo(line); }
+    else if(command == "type") { type(line); }
+    else if (command == "pwd") { pwd(line); }
+    else if (command == "cd") { cd(line); }
     else
     {
       if (execute(line)==1)
@@ -200,8 +194,10 @@ int main() {
 
 /*
 Commits:
+To Do:
+1. Refactor: replace stringstream with vector<char>
 Added:
-1.  Implement the cd builtin: cd (change directory),given the absolute path of the current working directory to stdout.
+1.
 */
 
 /*
