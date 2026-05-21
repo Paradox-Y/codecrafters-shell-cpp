@@ -12,6 +12,10 @@ void echo(std::string &str);
 int execute(std::string line);
 bool cd(std::string &line);
 
+void tokenizer (std:: string &line) {
+  return;
+}
+
 bool cd(std::string &line) {
   std::string path;
   path = line.substr(3);
@@ -197,7 +201,7 @@ Commits:
 To Do:
 1. Refactor: replace stringstream with vector<char>
 Added:
-1.
+1.writing my own tokenizer (not using the stringstream)
 */
 
 /*
